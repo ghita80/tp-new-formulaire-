@@ -7,6 +7,7 @@ $filiere   = '';
 $motivation = '';
 $erreurs   = [];
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $prenom     = $_POST['prenom']     ?? '';
@@ -17,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $motivation = $_POST['motivation'] ?? '';
 
     $reglement = isset($_POST['reglement']);
+    
 
     if (empty($prenom)) {
     $erreurs[] = "Le prénom est obligatoire.";
@@ -40,6 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (strlen($motivation) < 30) {
     $erreurs[] = "La motivation doit contenir au moins 30 caractères.";
+    }
+    
+    if (strlen($motivation) > 300) {
+    $erreurs[] = "La motivation ne doit pas dépasser 300 caractères.";
     }
 
     if (!$reglement) {
@@ -79,6 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Votre candidature a bien été enregistrée. Nous vous contacterons à l'adresse indiquée.</p>
 
     <a href="candidature.php">Soumettre une nouvelle candidature</a>
+    <label>Motivation :</label>
+     <textarea name="motivation" rows="6" maxlength="300"><?php echo $motivation; ?></textarea>
+        <div class="compteur"><?php echo strlen($motivation); ?> / 300 caractères</div>
 
 <?php else: ?>
 
@@ -117,9 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <textarea name="motivation"><?php echo $motivation; ?></textarea>
 
 <label>
-<input type="checkbox" name="reglement" value="1"
-<?php echo $reglement ? 'checked' : ''; ?>>
-J'ai lu et j'accepte le règlement!
+    <input type="checkbox" name="reglement" value="1" <?php echo isset($reglement) && $reglement ? 'checked' : ''; ?>>
+    J'ai lu et j'accepte le règlement!
 </label>
 
 <button type="submit">Envoyer</button>
