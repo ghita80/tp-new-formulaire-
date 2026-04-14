@@ -53,10 +53,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
+
     <meta charset="UTF-8">
     <title>Candidature</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<body>
+    <?php if (empty($erreurs) && $_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+
+    <!-- ÉTAPE 7 : FICHE DE CONFIRMATION -->
+    <h1>Candidature reçue !</h1>
+
+    <ul>
+        <li>Prénom : <?php echo $prenom; ?></li>
+        <li>Nom : <?php echo $nom; ?></li>
+        <li>Email : <?php echo $email; ?></li>
+        <li>Âge : <?php echo $age; ?></li>
+        <li>Filière : <?php echo $filiere; ?></li>
+    </ul>
+
+    <p>Lettre de motivation :</p>
+    <p><?php echo $motivation; ?></p>
+
+    <p>Votre candidature a bien été enregistrée. Nous vous contacterons à l'adresse indiquée.</p>
+
+    <a href="candidature.php">Soumettre une nouvelle candidature</a>
+
+<?php else: ?>
 
 <?php if (!empty($erreurs)): ?>
 <ul class="erreurs">
@@ -83,10 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <label>Filière :</label>
 <select name="filiere">
     <option value="">-- Choisir --</option>
-    <option value="Informatique" <?php echo ($filiere === 'Informatique') ? 'selected' : ''; ?>>
-    <option value="Électronique">Électronique</option>
-    <option value="Mécanique">Mécanique</option>
-    <option value="Autre">Autre</option>
+    <option value="Informatique" <?php echo ($filiere === 'Informatique') ? 'selected' : ''; ?>>Informatique</option>
+    <option value="Électronique" <?php echo ($filiere === 'Électronique') ? 'selected' : ''; ?>>Électronique</option>
+    <option value="Mécanique" <?php echo ($filiere === 'Mécanique') ? 'selected' : ''; ?>>Mécanique</option>
+    <option value="Autre" <?php echo ($filiere === 'Autre') ? 'selected' : ''; ?>>Autre</option>
 </select>
 
 <label>Motivation :</label>
@@ -102,5 +126,6 @@ J'ai lu et j'accepte le règlement!
 
 </form>
 
+<?php endif; ?>
 </body>
 </html>
