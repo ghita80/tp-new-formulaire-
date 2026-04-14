@@ -6,6 +6,7 @@ $age       = '';
 $filiere   = '';
 $motivation = '';
 $erreurs   = [];
+$confemail = '';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $age        = $_POST['age']        ?? '';
     $filiere    = $_POST['filiere']    ?? '';
     $motivation = $_POST['motivation'] ?? '';
-
     $reglement = isset($_POST['reglement']);
-    
+    $confemail = $_POST['confemail'] ?? '';
+
 
     if (empty($prenom)) {
     $erreurs[] = "Le prénom est obligatoire.";
@@ -30,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $erreurs[] = "L'adresse email est invalide.";
+    }
+    if (!empty($email) && $email !== $confemail) {
+    $erreurs[] = "Les deux adresses email ne correspondent pas.";
     }
     
     if (!is_numeric($age) || $age < 16 || $age > 30) {
@@ -109,6 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <label>Email :</label>
 <input type="email" name="email" value="<?php echo $email; ?>">
+<label>Confirmez votre email :</label>
+<input type="email" name="confemail" value="<?php echo $confemail ?? ''; ?>">
 
 <label>Âge :</label>
 <input type="number" name="age" value="<?php echo $age; ?>">
@@ -137,3 +143,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 </body>
 </html>
+
