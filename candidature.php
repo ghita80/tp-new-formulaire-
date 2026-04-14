@@ -57,6 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Candidature</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
+<?php if (!empty($erreurs)): ?>
+<ul class="erreurs">
+    <?php foreach ($erreurs as $e): ?>
+        <li><?php echo $e; ?></li>
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>
+
 <form action="candidature.php" method="POST">
 
 <label>Prénom :</label>
