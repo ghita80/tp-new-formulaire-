@@ -69,32 +69,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="candidature.php" method="POST">
 
 <label>Prénom :</label>
-<input type="text" name="prenom">
+<input type="text" name="prenom" value="<?php echo $prenom; ?>">
 
 <label>Nom :</label>
-<input type="text" name="nom">
+<input type="text" name="nom" value="<?php echo $nom; ?>">
 
 <label>Email :</label>
-<input type="email" name="email">
+<input type="email" name="email" value="<?php echo $email; ?>">
 
 <label>Âge :</label>
-<input type="number" name="age">
+<input type="number" name="age" value="<?php echo $age; ?>">
 
 <label>Filière :</label>
 <select name="filiere">
     <option value="">-- Choisir --</option>
-    <option value="Informatique">Informatique</option>
+    <option value="Informatique" <?php echo ($filiere === 'Informatique') ? 'selected' : ''; ?>>
     <option value="Électronique">Électronique</option>
     <option value="Mécanique">Mécanique</option>
     <option value="Autre">Autre</option>
 </select>
 
 <label>Motivation :</label>
-<textarea name="motivation" rows="6"></textarea>
+<textarea name="motivation"><?php echo $motivation; ?></textarea>
 
 <label>
-<input type="checkbox" name="reglement" value="1">
-J'ai lu et j'accepte le règlement
+<input type="checkbox" name="reglement" value="1"
+<?php echo $reglement ? 'checked' : ''; ?>>
+J'ai lu et j'accepte le règlement!
 </label>
 
 <button type="submit">Envoyer</button>
